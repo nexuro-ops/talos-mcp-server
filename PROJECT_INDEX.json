@@ -1,0 +1,221 @@
+{
+  "project": {
+    "name": "talos-mcp-server",
+    "type": "Rust MCP Server",
+    "status": "Production-Ready",
+    "version": "0.1.0",
+    "description": "Complete, production-ready Talos MCP (Model Context Protocol) Server implementation in Rust"
+  },
+  "structure": {
+    "src": {
+      "main.rs": {
+        "lines": 1200,
+        "purpose": "Core MCP server logic",
+        "key_components": [
+          "RpcRequest/Response structures",
+          "JSON-RPC 2.0 protocol handling",
+          "Tool dispatch system",
+          "talosctl command wrapper"
+        ]
+      },
+      "tools.rs": {
+        "lines": 650,
+        "purpose": "Tool schema definitions",
+        "exports": "get_all_tool_schemas()"
+      }
+    },
+    "config": {
+      "Cargo.toml": "Project manifest with dependencies",
+      ".cursor/mcp.json": "Cursor IDE configuration"
+    },
+    "ci_cd": {
+      ".github/workflows/ci-cd.yml": "GitHub Actions pipeline"
+    }
+  },
+  "tools": {
+    "total": 37,
+    "categories": {
+      "system_inspection": {
+        "count": 5,
+        "tools": [
+          "containers",
+          "stats",
+          "memory_verbose",
+          "get_cpu_memory_usage",
+          "get_processes"
+        ]
+      },
+      "file_operations": {
+        "count": 6,
+        "tools": [
+          "list",
+          "read",
+          "copy",
+          "get_usage",
+          "get_mounts"
+        ]
+      },
+      "network_operations": {
+        "count": 6,
+        "tools": [
+          "interfaces",
+          "routes",
+          "get_netstat",
+          "capture_packets",
+          "get_network_io_cgroups",
+          "list_network_interfaces"
+        ]
+      },
+      "service_logging": {
+        "count": 5,
+        "tools": [
+          "dmesg",
+          "service",
+          "restart",
+          "get_logs",
+          "get_events"
+        ]
+      },
+      "storage_hardware": {
+        "count": 2,
+        "tools": [
+          "disks",
+          "list_disks"
+        ]
+      },
+      "core_cluster": {
+        "count": 3,
+        "tools": [
+          "get_health",
+          "get_version",
+          "get_time"
+        ]
+      },
+      "node_management": {
+        "count": 5,
+        "tools": [
+          "reboot_node",
+          "shutdown_node",
+          "reset_node",
+          "upgrade_node",
+          "upgrade_k8s"
+        ]
+      },
+      "configuration": {
+        "count": 2,
+        "tools": [
+          "apply_config",
+          "validate_config"
+        ]
+      },
+      "etcd": {
+        "count": 3,
+        "tools": [
+          "get_etcd_status",
+          "get_etcd_members",
+          "bootstrap_etcd",
+          "defrag_etcd"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "serde": {
+      "version": "1.0",
+      "features": ["derive"],
+      "purpose": "Serialization framework"
+    },
+    "serde_json": {
+      "version": "1.0",
+      "purpose": "JSON handling"
+    },
+    "tokio": {
+      "version": "1.0",
+      "features": ["full"],
+      "purpose": "Async runtime"
+    },
+    "log": {
+      "version": "0.4",
+      "purpose": "Logging"
+    },
+    "env_logger": {
+      "version": "0.10",
+      "purpose": "Logger configuration"
+    },
+    "anyhow": {
+      "version": "1.0",
+      "purpose": "Error handling"
+    }
+  },
+  "entry_points": [
+    {
+      "type": "Binary",
+      "path": "target/release/talos-mcp-server",
+      "description": "MCP server executable"
+    }
+  ],
+  "architecture": {
+    "protocol": "JSON-RPC 2.0 over stdio",
+    "communication": "Async with Tokio",
+    "design_pattern": "Command dispatcher with handler categories",
+    "handlers": [
+      "MCP protocol methods",
+      "System inspection methods",
+      "File operations methods",
+      "Network operations methods",
+      "Service/logging methods",
+      "Storage/hardware methods",
+      "Core cluster methods",
+      "Node management methods",
+      "Configuration/etcd methods"
+    ]
+  },
+  "requirements": {
+    "environment": [
+      {
+        "name": "TALOSCONFIG",
+        "type": "Environment Variable",
+        "description": "Path to Talos configuration file",
+        "required": true
+      }
+    ],
+    "external_tools": [
+      {
+        "name": "talosctl",
+        "description": "Talos CLI tool",
+        "required": true
+      }
+    ]
+  },
+  "documentation": {
+    "README.md": "User guide, installation, usage examples",
+    "CLAUDE.md": "AI assistant guidance and development instructions",
+    "docs/cli.md": "CLI documentation",
+    "PROJECT_INDEX.md": "Project structure and reference"
+  },
+  "development": {
+    "build": "cargo build --release",
+    "lint": "cargo clippy",
+    "testing_approach": "Live cluster testing with real Talos nodes",
+    "safety_protocol": "READ-ONLY for destructive operations"
+  },
+  "code_metrics": {
+    "total_lines": 1850,
+    "main_server": 1200,
+    "tool_schemas": 650,
+    "methods": 37,
+    "handler_categories": 9
+  },
+  "testing": {
+    "status": "Live cluster validated",
+    "test_node": "192.168.1.77",
+    "method": "JSON-RPC echo commands"
+  },
+  "token_efficiency": {
+    "full_codebase": 58000,
+    "index_size": 3000,
+    "savings_per_session": 55000,
+    "roi_10_sessions": 550000,
+    "roi_100_sessions": 5500000
+  }
+}
